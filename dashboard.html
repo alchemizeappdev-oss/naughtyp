@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Naughty Pilot</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="Naughty Pilot">
+      </a>
+      
+      <div class="nav-admin-info">
+        <span class="user-name" id="userName">John Doe</span>
+        <a href="login.html" class="btn btn-ghost btn-sm" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Container -->
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <nav class="sidebar-nav">
+        <a href="#overview" class="sidebar-link active" data-section="overview">
+          <span class="sidebar-icon">📊</span>
+          Overview
+        </a>
+        <a href="#campaigns" class="sidebar-link" data-section="campaigns">
+          <span class="sidebar-icon">🎯</span>
+          Campaigns
+        </a>
+        <a href="#billing" class="sidebar-link" data-section="billing">
+          <span class="sidebar-icon">💳</span>
+          Billing
+        </a>
+        <a href="#deposits" class="sidebar-link" data-section="deposits">
+          <span class="sidebar-icon">💰</span>
+          Add Funds
+        </a>
+        <a href="#invoices" class="sidebar-link" data-section="invoices">
+          <span class="sidebar-icon">📄</span>
+          Invoices
+        </a>
+        <a href="#settings" class="sidebar-link" data-section="settings">
+          <span class="sidebar-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      
+      <!-- Overview Section -->
+      <section id="overview-section" class="dashboard-section active">
+        <div class="section-header">
+          <h1>Dashboard <span class="text-red">Overview</span></h1>
+          <p>Welcome back! Here's your account summary.</p>
+        </div>
+
+        <!-- Account Balance -->
+        <div class="balance-card glass-card glow-red">
+          <div class="balance-info">
+            <p class="balance-label">Available Balance</p>
+            <h2 class="balance-amount" id="accountBalance">$0.00</h2>
+          </div>
+          <button class="btn btn-primary" onclick="showSection('deposits')">Add Funds</button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card glass-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-info">
+              <h3 id="totalSpend">$0</h3>
+              <p>Total Spend</p>
+            </div>
+          </div>
+          
+          <div class="stat-card glass-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-info">
+              <h3 id="activeCampaigns">0</h3>
+              <p>Active Campaigns</p>
+            </div>
+          </div>
+          
+          <div class="stat-card glass-card">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-info">
+              <h3 id="totalImpressions">0</h3>
+              <p>Impressions</p>
+            </div>
+          </div>
+          
+          <div class="stat-card glass-card">
+            <div class="stat-icon">🔗</div>
+            <div class="stat-info">
+              <h3 id="totalClicks">0</h3>
+              <p>Clicks</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="activity-card glass-card">
+          <h3>Recent Activity</h3>
+          <div class="activity-list" id="activityList">
+            <div class="activity-item">
+              <span class="activity-icon">💰</span>
+              <div class="activity-content">
+                <p class="activity-text">Account created - Welcome to Naughty Pilot!</p>
+                <span class="activity-time">Just now</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Campaigns Section -->
+      <section id="campaigns-section" class="dashboard-section">
+        <div class="section-header">
+          <h1>My <span class="text-red">Campaigns</span></h1>
+          <button class="btn btn-primary">Create Campaign</button>
+        </div>
+
+        <div class="campaigns-list">
+          <div class="empty-state">
+            <h3>No campaigns yet</h3>
+            <p>Create your first campaign to start driving traffic</p>
+            <button class="btn btn-secondary">Create Campaign</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Billing Section -->
+      <section id="billing-section" class="dashboard-section">
+        <div class="section-header">
+          <h1>Billing & <span class="text-red">Payment Methods</span></h1>
+        </div>
+
+        <!-- Payment Methods -->
+        <div class="payment-methods-card glass-card">
+          <h3>Payment Methods</h3>
+          <div id="paymentMethodsList">
+            <div class="empty-state-small">
+              <p>No payment methods added</p>
+              <button class="btn btn-primary" id="addPaymentMethodBtn">Add Payment Method</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Billing History -->
+        <div class="billing-history-card glass-card">
+          <h3>Recent Transactions</h3>
+          <div class="billing-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsTable">
+                <tr>
+                  <td colspan="4" class="empty-row">No transactions yet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deposits Section -->
+      <section id="deposits-section" class="dashboard-section">
+        <div class="section-header">
+          <h1>Add <span class="text-red">Funds</span></h1>
+          <p>Deposit funds to your account balance</p>
+        </div>
+
+        <div class="deposit-container">
+          <div class="deposit-form-card glass-card">
+            <h3>Select Amount</h3>
+            
+            <div class="amount-presets">
+              <button class="amount-btn" data-amount="100">$100</button>
+              <button class="amount-btn" data-amount="250">$250</button>
+              <button class="amount-btn" data-amount="500">$500</button>
+              <button class="amount-btn" data-amount="1000">$1,000</button>
+              <button class="amount-btn" data-amount="2500">$2,500</button>
+              <button class="amount-btn" data-amount="5000">$5,000</button>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Or enter custom amount</label>
+              <div class="amount-input-wrapper">
+                <span class="currency-symbol">$</span>
+                <input 
+                  type="number" 
+                  id="depositAmount" 
+                  class="form-input amount-input" 
+                  placeholder="0.00"
+                  min="10"
+                  step="1"
+                >
+              </div>
+            </div>
+
+            <div class="deposit-summary">
+              <div class="summary-row">
+                <span>Deposit Amount:</span>
+                <span id="summaryAmount">$0.00</span>
+              </div>
+              <div class="summary-row">
+                <span>Processing Fee (2.9% + $0.30):</span>
+                <span id="summaryFee">$0.00</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total to Charge:</span>
+                <span id="summaryTotal">$0.00</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-full btn-lg" id="depositBtn" disabled>
+              Deposit Funds
+            </button>
+
+            <p class="deposit-note">
+              <small>Funds are instantly available. Secure payment processed by Stripe.</small>
+            </p>
+          </div>
+
+          <div class="deposit-info-card glass-card">
+            <h4>💳 Accepted Payment Methods</h4>
+            <ul class="payment-list">
+              <li>✓ Credit & Debit Cards</li>
+              <li>✓ ACH Bank Transfer</li>
+              <li>✓ Apple Pay & Google Pay</li>
+              <li>✓ Link (Stripe)</li>
+            </ul>
+
+            <h4>🔒 Secure Processing</h4>
+            <p>All payments are processed securely through Stripe with PCI DSS Level 1 certification.</p>
+
+            <h4>📊 Instant Availability</h4>
+            <p>Deposited funds are immediately available for campaigns. No waiting period.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Invoices Section -->
+      <section id="invoices-section" class="dashboard-section">
+        <div class="section-header">
+          <h1><span class="text-red">Invoices</span></h1>
+        </div>
+
+        <div class="invoices-card glass-card">
+          <div class="invoices-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Invoice #</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="invoicesTable">
+                <tr>
+                  <td colspan="5" class="empty-row">No invoices yet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings Section -->
+      <section id="settings-section" class="dashboard-section">
+        <div class="section-header">
+          <h1>Account <span class="text-red">Settings</span></h1>
+        </div>
+
+        <div class="settings-card glass-card">
+          <h3>Profile Information</h3>
+          <form id="profileForm">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-input" value="John Doe">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" value="john@example.com">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Company</label>
+              <input type="text" class="form-input" value="AdVentures LLC">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+
+        <div class="settings-card glass-card">
+          <h3>Change Password</h3>
+          <form id="passwordForm">
+            <div class="form-group">
+              <label class="form-label">Current Password</label>
+              <input type="password" class="form-input">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" class="form-input">
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Confirm New Password</label>
+              <input type="password" class="form-input">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Password</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Stripe Payment Modal -->
+  <div class="modal" id="stripeModal">
+    <div class="modal-content modal-medium glass-card">
+      <button class="modal-close" id="stripeModalClose">&times;</button>
+      <h3>Add Payment Method</h3>
+      <p>Your payment information is securely processed by Stripe</p>
+      
+      <form id="payment-form">
+        <div id="payment-element"></div>
+        <div id="payment-errors" class="message message-error" style="display: none;"></div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="submit-payment">
+          <span id="button-text">Save Payment Method</span>
+          <div class="spinner" id="spinner" style="display: none;"></div>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <style>
+    body {
+      padding-top: 0;
+    }
+
+    .navbar {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.98);
+      border-bottom: 1px solid rgba(220, 20, 60, 0.2);
+    }
+    
+    .nav-admin-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-name {
+      color: var(--np-white);
+      font-weight: 500;
+    }
+
+    .dashboard-layout {
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    .dashboard-sidebar {
+      background: var(--np-deep-black);
+      border-right: 1px solid rgba(220, 20, 60, 0.1);
+      padding: 2rem 0;
+      position: fixed;
+      left: 0;
+      top: 80px;
+      bottom: 0;
+      width: 250px;
+      overflow-y: auto;
+      z-index: 10;
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      color: var(--np-gray-light);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(220, 20, 60, 0.05);
+      color: var(--np-white);
+    }
+
+    .sidebar-link.active {
+      background: rgba(220, 20, 60, 0.1);
+      color: var(--np-red);
+      border-left-color: var(--np-red);
+    }
+
+    .sidebar-icon {
+      font-size: 1.25rem;
+    }
+
+    .dashboard-main {
+      padding: 3rem;
+      margin-left: 250px;
+    }
+
+    .dashboard-section {
+      display: none;
+    }
+
+    .dashboard-section.active {
+      display: block;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-header h1 {
+      font-size: 2rem;
+      margin: 0;
+      flex: 1 1 auto;
+    }
+
+    .section-header p {
+      color: var(--np-gray-light);
+      margin: 0.5rem 0 0;
+      width: 100%;
+    }
+    
+    .section-header .btn {
+      flex-shrink: 0;
+    }
+
+    .balance-card {
+      padding: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .balance-amount {
+      font-size: 3rem;
+      color: var(--np-red);
+      margin: 0.5rem 0 0;
+    }
+
+    .balance-label {
+      color: var(--np-gray-light);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+    }
+
+    .stat-info h3 {
+      font-size: 1.75rem;
+      color: var(--np-white);
+      margin: 0 0 0.25rem;
+    }
+
+    .stat-info p {
+      font-size: 0.875rem;
+      color: var(--np-gray-light);
+      margin: 0;
+    }
+
+    .activity-card, .payment-methods-card, .billing-history-card, .invoices-card, .settings-card {
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .activity-card h3, .payment-methods-card h3, .billing-history-card h3, .invoices-card h3, .settings-card h3 {
+      margin: 0 0 1.5rem;
+      color: var(--np-red);
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+    }
+
+    .activity-icon {
+      font-size: 1.5rem;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-text {
+      margin: 0 0 0.25rem;
+      color: var(--np-white);
+    }
+
+    .activity-time {
+      font-size: 0.875rem;
+      color: var(--np-gray);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .empty-state h3 {
+      color: var(--np-white);
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+      color: var(--np-gray-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .empty-state-small {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .billing-table, .invoices-table {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 1px solid rgba(220, 20, 60, 0.2);
+      color: var(--np-red);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--np-gray-light);
+    }
+
+    .empty-row {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--np-gray);
+    }
+
+    .deposit-container {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2rem;
+    }
+
+    .deposit-form-card, .deposit-info-card {
+      padding: 2rem;
+    }
+
+    .deposit-form-card h3, .deposit-info-card h4 {
+      margin: 0 0 1.5rem;
+      color: var(--np-red);
+    }
+
+    .amount-presets {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .amount-btn {
+      padding: 1rem;
+      background: rgba(220, 20, 60, 0.1);
+      border: 2px solid rgba(220, 20, 60, 0.2);
+      border-radius: 8px;
+      color: var(--np-white);
+      font-weight: 600;
+      font-size: 1.125rem;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-family: var(--font-body);
+    }
+
+    .amount-btn:hover, .amount-btn.active {
+      background: rgba(220, 20, 60, 0.2);
+      border-color: var(--np-red);
+    }
+
+    .amount-input-wrapper {
+      position: relative;
+    }
+
+    .currency-symbol {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--np-gray);
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .amount-input {
+      padding-left: 2.5rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .deposit-summary {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      color: var(--np-gray-light);
+    }
+
+    .summary-row.total {
+      border-top: 1px solid rgba(220, 20, 60, 0.2);
+      margin-top: 0.5rem;
+      padding-top: 1rem;
+      font-weight: 600;
+      font-size: 1.125rem;
+      color: var(--np-white);
+    }
+
+    .deposit-note {
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--np-gray);
+    }
+
+    .payment-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 2rem;
+    }
+
+    .payment-list li {
+      padding: 0.5rem 0;
+      color: var(--np-gray-light);
+    }
+
+    .deposit-info-card h4 {
+      font-size: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .deposit-info-card p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--np-gray-light);
+    }
+
+    .modal-medium {
+      max-width: 550px;
+    }
+
+    #payment-element {
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-sidebar {
+        position: relative;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid rgba(220, 20, 60, 0.1);
+        top: 0;
+      }
+
+      .dashboard-main {
+        margin-left: 0;
+        padding: 2rem;
+      }
+
+      .deposit-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .balance-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+      }
+
+      .amount-presets {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .section-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .section-header .btn {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <script>
+    // Initialize Stripe
+    const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY'); // Replace with your Stripe publishable key
+    let elements;
+    let paymentElement;
+
+    // Navigation
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = link.dataset.section;
+        showSection(section);
+      });
+    });
+
+    function showSection(sectionName) {
+      // Update sidebar
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+      
+      // Update content
+      document.querySelectorAll('.dashboard-section').forEach(s => s.classList.remove('active'));
+      document.getElementById(`${sectionName}-section`).classList.add('active');
+    }
+
+    // Deposit amount handling
+    const depositAmountInput = document.getElementById('depositAmount');
+    const depositBtn = document.getElementById('depositBtn');
+    const amountBtns = document.querySelectorAll('.amount-btn');
+
+    amountBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        amountBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const amount = btn.dataset.amount;
+        depositAmountInput.value = amount;
+        updateDepositSummary(parseFloat(amount));
+      });
+    });
+
+    depositAmountInput.addEventListener('input', () => {
+      amountBtns.forEach(b => b.classList.remove('active'));
+      const amount = parseFloat(depositAmountInput.value) || 0;
+      updateDepositSummary(amount);
+    });
+
+    function updateDepositSummary(amount) {
+      const fee = amount * 0.029 + 0.30;
+      const total = amount + fee;
+
+      document.getElementById('summaryAmount').textContent = `$${amount.toFixed(2)}`;
+      document.getElementById('summaryFee').textContent = `$${fee.toFixed(2)}`;
+      document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`;
+
+      depositBtn.disabled = amount < 10;
+    }
+
+    // Deposit button
+    depositBtn.addEventListener('click', async () => {
+      const amount = parseFloat(depositAmountInput.value);
+      if (amount < 10) {
+        alert('Minimum deposit is $10');
+        return;
+      }
+
+      depositBtn.disabled = true;
+      depositBtn.innerHTML = '<div class="spinner"></div> Processing...';
+
+      // In production, create payment intent on your backend
+      // const response = await fetch('/api/create-payment-intent', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ amount: amount * 100 }) // Amount in cents
+      // });
+      // const { clientSecret } = await response.json();
+
+      // For demo
+      setTimeout(() => {
+        alert(`Deposit of $${amount} would be processed here.\n\nIn production, integrate with:\n1. Your backend to create Stripe Payment Intent\n2. Stripe Elements to collect payment\n3. Update account balance on success`);
+        depositBtn.disabled = false;
+        depositBtn.innerHTML = 'Deposit Funds';
+      }, 1500);
+    });
+
+    // Add Payment Method
+    document.getElementById('addPaymentMethodBtn')?.addEventListener('click', async () => {
+      document.getElementById('stripeModal').classList.add('active');
+      
+      if (!elements) {
+        // In production, create SetupIntent on your backend
+        // const response = await fetch('/api/create-setup-intent', { method: 'POST' });
+        // const { clientSecret } = await response.json();
+
+        const clientSecret = 'seti_test_demo'; // Demo only
+
+        elements = stripe.elements({ clientSecret });
+        paymentElement = elements.create('payment');
+        paymentElement.mount('#payment-element');
+      }
+    });
+
+    // Close modal
+    document.getElementById('stripeModalClose')?.addEventListener('click', () => {
+      document.getElementById('stripeModal').classList.remove('active');
+    });
+
+    // Payment form submission
+    document.getElementById('payment-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-payment');
+      const buttonText = document.getElementById('button-text');
+      const spinner = document.getElementById('spinner');
+
+      submitBtn.disabled = true;
+      buttonText.style.display = 'none';
+      spinner.style.display = 'inline-block';
+
+      // In production, confirm setup with Stripe
+      // const { error } = await stripe.confirmSetup({
+      //   elements,
+      //   confirmParams: {
+      //     return_url: window.location.origin + '/dashboard.html',
+      //   },
+      // });
+
+      setTimeout(() => {
+        alert('Payment method would be saved here.\n\nIn production:\n1. Create SetupIntent on backend\n2. Confirm with Stripe\n3. Save payment method to customer');
+        
+        submitBtn.disabled = false;
+        buttonText.style.display = 'inline';
+        spinner.style.display = 'none';
+        document.getElementById('stripeModal').classList.remove('active');
+      }, 1500);
+    });
+
+    // Demo data
+    updateDepositSummary(0);
+  </script>
+</body>
+</html>

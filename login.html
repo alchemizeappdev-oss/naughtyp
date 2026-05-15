@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Naughty Pilot</title>
+  <meta name="description" content="Login to your Naughty Pilot account">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="Naughty Pilot">
+      </a>
+      
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-menu" id="navMenu">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">Home</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link">
+            Traffic Solutions
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="traffic-solutions.html#advertiser" class="dropdown-link">Advertiser Traffic</a>
+            <a href="traffic-solutions.html#publisher" class="dropdown-link">Publisher Monetization</a>
+            <a href="traffic-solutions.html#creator" class="dropdown-link">Creator Growth</a>
+            <a href="traffic-solutions.html#realtime" class="dropdown-link">Real-Time Traffic</a>
+            <a href="traffic-solutions.html#scaling" class="dropdown-link">Campaign Scaling</a>
+          </div>
+        </li>
+        
+        <li class="nav-item">
+          <a href="why-us.html" class="nav-link">Why Us</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link">
+            Affiliates
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="affiliates.html#program" class="dropdown-link">Partner Program</a>
+            <a href="affiliates.html#payouts" class="dropdown-link">Payouts</a>
+            <a href="affiliates.html#apply" class="dropdown-link">Apply as Affiliate</a>
+          </div>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link">
+            Company
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
+          </a>
+          <div class="dropdown-menu">
+            <a href="company.html#about" class="dropdown-link">About</a>
+            <a href="company.html#compliance" class="dropdown-link">Compliance</a>
+            <a href="company.html#contact" class="dropdown-link">Contact</a>
+            <a href="company.html#terms" class="dropdown-link">Terms</a>
+            <a href="company.html#privacy" class="dropdown-link">Privacy</a>
+          </div>
+        </li>
+        
+        <li class="nav-item nav-cta">
+          <a href="login.html" class="btn btn-ghost active">Login</a>
+          <a href="get-started.html" class="btn btn-primary">Get Started</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Login Section -->
+  <section class="login-section">
+    <div class="login-container">
+      <div class="login-box glass-card">
+        <div class="login-header">
+          <img src="assets/logo.png" alt="Naughty Pilot" class="login-logo">
+          <h2>Welcome <span class="text-red">Back</span></h2>
+          <p>Login to access your dashboard</p>
+        </div>
+        
+        <form class="login-form" id="loginForm">
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="your@email.com"
+              required
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="password" class="form-label">Password</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Enter your password"
+              required
+            >
+          </div>
+          
+          <div class="form-options">
+            <div class="form-checkbox">
+              <input type="checkbox" id="remember" name="remember">
+              <label for="remember">Remember me</label>
+            </div>
+            <a href="#" class="forgot-link" id="forgotLink">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-full" id="loginBtn">
+            Login
+          </button>
+        </form>
+        
+        <div class="login-divider">
+          <span>or</span>
+        </div>
+        
+        <div class="login-footer">
+          <p>Don't have an account? <a href="get-started.html" class="text-red">Apply now</a></p>
+        </div>
+      </div>
+      
+      <div class="login-features">
+        <div class="feature-item glass-card">
+          <div class="feature-icon">📊</div>
+          <h4>Real-Time Dashboard</h4>
+          <p>Monitor your campaigns and earnings in real-time</p>
+        </div>
+        
+        <div class="feature-item glass-card">
+          <div class="feature-icon">⚡</div>
+          <h4>Instant Updates</h4>
+          <p>Make changes and see results immediately</p>
+        </div>
+        
+        <div class="feature-item glass-card">
+          <div class="feature-icon">📈</div>
+          <h4>Detailed Analytics</h4>
+          <p>Track performance with advanced reporting tools</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Forgot Password Modal -->
+  <div class="modal" id="forgotModal">
+    <div class="modal-content glass-card">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <h3>Reset <span class="text-red">Password</span></h3>
+      <p>Enter your email address and we'll send you a password reset link.</p>
+      
+      <form class="forgot-form" id="forgotForm">
+        <div class="form-group">
+          <label for="resetEmail" class="form-label">Email Address</label>
+          <input 
+            type="email" 
+            id="resetEmail" 
+            name="resetEmail" 
+            class="form-input" 
+            placeholder="your@email.com"
+            required
+          >
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-full" id="resetBtn">
+          Send Reset Link
+        </button>
+      </form>
+      
+      <p class="modal-footer">Remember your password? <a href="#" class="text-red" id="backToLogin">Back to login</a></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Platform</h4>
+        <ul class="footer-links">
+          <li><a href="index.html" class="footer-link">Home</a></li>
+          <li><a href="traffic-solutions.html" class="footer-link">Traffic Solutions</a></li>
+          <li><a href="why-us.html" class="footer-link">Why Us</a></li>
+          <li><a href="affiliates.html" class="footer-link">Affiliates</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="company.html#about" class="footer-link">About</a></li>
+          <li><a href="company.html#compliance" class="footer-link">Compliance</a></li>
+          <li><a href="company.html#contact" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="company.html#terms" class="footer-link">Terms</a></li>
+          <li><a href="company.html#privacy" class="footer-link">Privacy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Access</h4>
+        <ul class="footer-links">
+          <li><a href="login.html" class="footer-link">Login</a></li>
+          <li><a href="get-started.html" class="footer-link">Get Started</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>18+ only. Naughty Pilot works with compliant adult-friendly advertisers, publishers, creators, and traffic partners. All campaigns and partners are subject to review.</p>
+      <p style="margin-top: 1rem;">&copy; 2026 Naughty Pilot. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <style>
+    .login-section {
+      min-height: 100vh;
+      padding: 10rem 3rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .login-container {
+      max-width: 1200px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    
+    .login-box {
+      padding: 3rem;
+      max-width: 500px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    
+    .login-logo {
+      height: 60px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .login-header h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .login-header p {
+      font-size: 1rem;
+      color: var(--np-gray-light);
+    }
+    
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: -0.5rem;
+    }
+    
+    .forgot-link {
+      color: var(--np-red);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: opacity var(--transition-fast);
+    }
+    
+    .forgot-link:hover {
+      opacity: 0.8;
+    }
+    
+    .btn-full {
+      width: 100%;
+      margin-top: 1rem;
+    }
+    
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      color: var(--np-gray);
+      font-size: 0.9rem;
+    }
+    
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+    
+    .login-footer {
+      text-align: center;
+    }
+    
+    .login-footer p {
+      font-size: 0.95rem;
+      color: var(--np-gray-light);
+    }
+    
+    .login-footer a {
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity var(--transition-fast);
+    }
+    
+    .login-footer a:hover {
+      opacity: 0.8;
+    }
+    
+    .login-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .feature-item {
+      padding: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+    
+    .feature-item h4 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--np-white);
+    }
+    
+    .feature-item p {
+      font-size: 0.9rem;
+      color: var(--np-gray-light);
+      line-height: 1.5;
+    }
+    
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      max-width: 500px;
+      width: 100%;
+      padding: 3rem;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--np-white);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+      line-height: 1;
+    }
+    
+    .modal-close:hover {
+      color: var(--np-red);
+    }
+    
+    .modal-content h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .modal-content > p {
+      color: var(--np-gray-light);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .forgot-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .modal-footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--np-gray-light);
+    }
+    
+    .modal-footer a {
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    @media (max-width: 1024px) {
+      .login-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .login-features {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .login-section {
+        padding: 8rem 2rem 4rem;
+      }
+      
+      .login-box {
+        padding: 2rem;
+      }
+      
+      .form-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      
+      .feature-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
+  </style>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navMenu = document.getElementById('navMenu');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+        navMenu.classList.remove('active');
+      }
+    });
+
+    // Login form submission
+    const loginForm = document.getElementById('loginForm');
+    const loginBtn = document.getElementById('loginBtn');
+    
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Show loading state
+      loginBtn.innerHTML = '<div class="spinner"></div>';
+      loginBtn.disabled = true;
+      
+      // Simulate API call (replace with actual authentication)
+      setTimeout(() => {
+        // For demo purposes, show an alert
+        alert('Login functionality would connect to your authentication backend here.\n\nFor development: Integrate with Firebase Auth, Supabase, or your custom API.');
+        
+        // Reset button
+        loginBtn.innerHTML = 'Login';
+        loginBtn.disabled = false;
+        
+        // In production, redirect to dashboard after successful login
+        // window.location.href = 'dashboard.html';
+      }, 1500);
+    });
+
+    // Forgot password modal
+    const forgotLink = document.getElementById('forgotLink');
+    const forgotModal = document.getElementById('forgotModal');
+    const modalClose = document.getElementById('modalClose');
+    const backToLogin = document.getElementById('backToLogin');
+    
+    forgotLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      forgotModal.classList.add('active');
+    });
+    
+    modalClose.addEventListener('click', () => {
+      forgotModal.classList.remove('active');
+    });
+    
+    backToLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      forgotModal.classList.remove('active');
+    });
+    
+    forgotModal.addEventListener('click', (e) => {
+      if (e.target === forgotModal) {
+        forgotModal.classList.remove('active');
+      }
+    });
+
+    // Forgot password form
+    const forgotForm = document.getElementById('forgotForm');
+    const resetBtn = document.getElementById('resetBtn');
+    
+    forgotForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      resetBtn.innerHTML = '<div class="spinner"></div>';
+      resetBtn.disabled = true;
+      
+      setTimeout(() => {
+        alert('Password reset email would be sent here.\n\nIntegrate with your email service (SendGrid, Mailgun, etc.)');
+        
+        resetBtn.innerHTML = 'Send Reset Link';
+        resetBtn.disabled = false;
+        forgotModal.classList.remove('active');
+        forgotForm.reset();
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

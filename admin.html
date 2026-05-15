@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Naughty Pilot</title>
+  <meta name="description" content="Admin dashboard for managing applications">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="assets/logo.png" alt="Naughty Pilot">
+      </a>
+      
+      <div class="nav-admin-info">
+        <span class="admin-badge">Admin</span>
+        <a href="login.html" class="btn btn-ghost btn-sm">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Header -->
+  <section class="dashboard-header">
+    <div class="dashboard-header-content">
+      <h1>Application <span class="text-red">Dashboard</span></h1>
+      <p class="dashboard-subtitle">Review and manage partner applications</p>
+    </div>
+  </section>
+
+  <!-- Dashboard Content -->
+  <section class="dashboard-section">
+    <div class="dashboard-container">
+      
+      <!-- Stats Overview -->
+      <div class="stats-overview">
+        <div class="stat-card glass-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <h3 id="totalApps">0</h3>
+            <p>Total Applications</p>
+          </div>
+        </div>
+        
+        <div class="stat-card glass-card">
+          <div class="stat-icon">🆕</div>
+          <div class="stat-info">
+            <h3 id="newApps">0</h3>
+            <p>New</p>
+          </div>
+        </div>
+        
+        <div class="stat-card glass-card">
+          <div class="stat-icon">👀</div>
+          <div class="stat-info">
+            <h3 id="reviewingApps">0</h3>
+            <p>Reviewing</p>
+          </div>
+        </div>
+        
+        <div class="stat-card glass-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <h3 id="approvedApps">0</h3>
+            <p>Approved</p>
+          </div>
+        </div>
+        
+        <div class="stat-card glass-card">
+          <div class="stat-icon">❌</div>
+          <div class="stat-info">
+            <h3 id="rejectedApps">0</h3>
+            <p>Rejected</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filters-bar glass-card">
+        <div class="filter-group">
+          <label>Status:</label>
+          <select id="filterStatus" class="form-select">
+            <option value="">All</option>
+            <option value="New">New</option>
+            <option value="Reviewing">Reviewing</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Role:</label>
+          <select id="filterRole" class="form-select">
+            <option value="">All</option>
+            <option value="advertiser">Advertiser</option>
+            <option value="publisher">Publisher</option>
+            <option value="creator">Creator</option>
+            <option value="affiliate">Affiliate</option>
+            <option value="agency">Agency</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Budget:</label>
+          <select id="filterBudget" class="form-select">
+            <option value="">All</option>
+            <option value="under1k">Under $1K</option>
+            <option value="1k-5k">$1K - $5K</option>
+            <option value="5k-10k">$5K - $10K</option>
+            <option value="10k-25k">$10K - $25K</option>
+            <option value="25k-50k">$25K - $50K</option>
+            <option value="50k-100k">$50K - $100K</option>
+            <option value="100k+">$100K+</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="form-input" 
+            placeholder="Search by name, email, or company..."
+          >
+        </div>
+      </div>
+
+      <!-- Applications List -->
+      <div class="applications-list" id="applicationsList">
+        <!-- Applications will be loaded here -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Application Detail Modal -->
+  <div class="modal" id="detailModal">
+    <div class="modal-content modal-large glass-card">
+      <button class="modal-close" id="modalClose">&times;</button>
+      
+      <div class="modal-body" id="modalBody">
+        <!-- Application details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .navbar {
+      background: rgba(0, 0, 0, 0.98);
+    }
+    
+    .nav-admin-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .admin-badge {
+      padding: 0.5rem 1rem;
+      background: rgba(220, 20, 60, 0.1);
+      border: 1px solid rgba(220, 20, 60, 0.3);
+      border-radius: 20px;
+      color: var(--np-red);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    .btn-sm {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+    }
+    
+    .dashboard-header {
+      padding: 8rem 3rem 3rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(10,10,10,1) 0%, rgba(0,0,0,1) 100%);
+      border-bottom: 1px solid rgba(220, 20, 60, 0.1);
+    }
+    
+    .dashboard-header-content h1 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .dashboard-subtitle {
+      font-size: 1.125rem;
+      color: var(--np-gray-light);
+    }
+    
+    .dashboard-section {
+      padding: 3rem;
+      min-height: 100vh;
+    }
+    
+    .dashboard-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .stats-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .stat-card {
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .stat-icon {
+      font-size: 2.5rem;
+    }
+    
+    .stat-info h3 {
+      font-size: 2rem;
+      color: var(--np-red);
+      margin-bottom: 0.25rem;
+    }
+    
+    .stat-info p {
+      font-size: 0.875rem;
+      color: var(--np-gray-light);
+    }
+    
+    .filters-bar {
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+      min-width: 180px;
+    }
+    
+    .filter-group label {
+      font-size: 0.875rem;
+      color: var(--np-gray-light);
+      font-weight: 500;
+    }
+    
+    .applications-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .app-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+      transition: all var(--transition-smooth);
+      cursor: pointer;
+    }
+    
+    .app-card:hover {
+      border-color: var(--np-red);
+      transform: translateX(5px);
+    }
+    
+    .app-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .app-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .app-name {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--np-white);
+    }
+    
+    .app-role-badge {
+      padding: 0.25rem 0.75rem;
+      background: rgba(220, 20, 60, 0.1);
+      border: 1px solid rgba(220, 20, 60, 0.2);
+      border-radius: 12px;
+      font-size: 0.75rem;
+      color: var(--np-red);
+      text-transform: capitalize;
+    }
+    
+    .app-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--np-gray-light);
+      flex-wrap: wrap;
+    }
+    
+    .app-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    
+    .app-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    .status-new {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      color: rgb(59, 130, 246);
+    }
+    
+    .status-reviewing {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: rgb(251, 191, 36);
+    }
+    
+    .status-approved {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: rgb(34, 197, 94);
+    }
+    
+    .status-rejected {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: rgb(239, 68, 68);
+    }
+    
+    .modal-large {
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    .modal-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .detail-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .detail-section h4 {
+      font-size: 1.125rem;
+      color: var(--np-red);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(220, 20, 60, 0.2);
+    }
+    
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    
+    .detail-label {
+      font-size: 0.875rem;
+      color: var(--np-gray);
+      font-weight: 500;
+    }
+    
+    .detail-value {
+      font-size: 1rem;
+      color: var(--np-white);
+    }
+    
+    .status-selector {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    
+    .status-btn {
+      padding: 0.625rem 1.25rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--np-white);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    
+    .status-btn:hover {
+      border-color: var(--np-red);
+    }
+    
+    .status-btn.active {
+      background: linear-gradient(135deg, var(--np-red) 0%, var(--np-deep-red) 100%);
+      border-color: var(--np-red);
+    }
+    
+    .notes-textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: var(--np-white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      resize: vertical;
+    }
+    
+    .notes-textarea:focus {
+      outline: none;
+      border-color: var(--np-red);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--np-gray-light);
+    }
+    
+    .empty-state h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--np-white);
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-section {
+        padding: 2rem;
+      }
+      
+      .filters-bar {
+        flex-direction: column;
+      }
+      
+      .filter-group {
+        width: 100%;
+        min-width: 100%;
+      }
+      
+      .app-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .app-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <script>
+    // Sample data - replace with actual database/API calls
+    let applications = [
+      {
+        id: 1,
+        name: 'John Doe',
+        email: 'john@example.com',
+        company: 'AdVentures LLC',
+        role: 'advertiser',
+        website: 'https://adventures.com',
+        trafficGoal: 'medium',
+        budget: '10k-25k',
+        message: 'Looking to scale adult traffic campaigns for dating offers.',
+        status: 'New',
+        createdAt: '2026-05-13T10:30:00Z',
+        reviewNotes: ''
+      },
+      {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane@publisher.com',
+        company: 'TopSites Media',
+        role: 'publisher',
+        website: 'https://topsites.com',
+        trafficGoal: 'large',
+        budget: '',
+        message: 'I have 50M monthly impressions to monetize across 10 premium adult sites.',
+        status: 'Reviewing',
+        createdAt: '2026-05-12T15:20:00Z',
+        reviewNotes: 'Traffic looks good, verifying site ownership.'
+      },
+      {
+        id: 3,
+        name: 'Alex Creator',
+        email: 'alex@onlyfans.com',
+        company: '',
+        role: 'creator',
+        website: 'https://onlyfans.com/alexcreator',
+        trafficGoal: 'small',
+        budget: '1k-5k',
+        message: 'Want to grow my OF subscriber base.',
+        status: 'Approved',
+        createdAt: '2026-05-11T09:15:00Z',
+        reviewNotes: 'Approved - active creator with good metrics.'
+      }
+    ];
+    
+    // Update stats
+    function updateStats() {
+      document.getElementById('totalApps').textContent = applications.length;
+      document.getElementById('newApps').textContent = applications.filter(a => a.status === 'New').length;
+      document.getElementById('reviewingApps').textContent = applications.filter(a => a.status === 'Reviewing').length;
+      document.getElementById('approvedApps').textContent = applications.filter(a => a.status === 'Approved').length;
+      document.getElementById('rejectedApps').textContent = applications.filter(a => a.status === 'Rejected').length;
+    }
+    
+    // Render applications
+    function renderApplications(apps = applications) {
+      const container = document.getElementById('applicationsList');
+      
+      if (apps.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <h3>No applications found</h3>
+            <p>Try adjusting your filters or search terms</p>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = apps.map(app => `
+        <div class="app-card" onclick="showDetail(${app.id})">
+          <div class="app-info">
+            <div class="app-header">
+              <span class="app-name">${app.name}</span>
+              <span class="app-role-badge">${app.role}</span>
+            </div>
+            <div class="app-meta">
+              <span class="app-meta-item">📧 ${app.email}</span>
+              ${app.company ? `<span class="app-meta-item">🏢 ${app.company}</span>` : ''}
+              ${app.budget ? `<span class="app-meta-item">💰 ${app.budget}</span>` : ''}
+              <span class="app-meta-item">📅 ${new Date(app.createdAt).toLocaleDateString()}</span>
+            </div>
+          </div>
+          <div class="app-actions">
+            <span class="status-badge status-${app.status.toLowerCase().replace(' ', '-')}">${app.status}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // Show application detail modal
+    function showDetail(id) {
+      const app = applications.find(a => a.id === id);
+      if (!app) return;
+      
+      const modal = document.getElementById('detailModal');
+      const modalBody = document.getElementById('modalBody');
+      
+      modalBody.innerHTML = `
+        <div class="detail-section">
+          <h4>Application Details</h4>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="detail-label">Name</span>
+              <span class="detail-value">${app.name}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Email</span>
+              <span class="detail-value">${app.email}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Company</span>
+              <span class="detail-value">${app.company || 'N/A'}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Role</span>
+              <span class="detail-value" style="text-transform: capitalize;">${app.role}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Website</span>
+              <span class="detail-value">${app.website ? `<a href="${app.website}" target="_blank" class="text-red">${app.website}</a>` : 'N/A'}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Traffic Goal</span>
+              <span class="detail-value">${app.trafficGoal || 'N/A'}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Budget</span>
+              <span class="detail-value">${app.budget || 'N/A'}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Submitted</span>
+              <span class="detail-value">${new Date(app.createdAt).toLocaleString()}</span>
+            </div>
+          </div>
+        </div>
+        
+        ${app.message ? `
+        <div class="detail-section">
+          <h4>Message</h4>
+          <p style="color: var(--np-gray-light); line-height: 1.6;">${app.message}</p>
+        </div>
+        ` : ''}
+        
+        <div class="detail-section">
+          <h4>Status</h4>
+          <div class="status-selector">
+            <button class="status-btn ${app.status === 'New' ? 'active' : ''}" onclick="updateStatus(${app.id}, 'New')">New</button>
+            <button class="status-btn ${app.status === 'Reviewing' ? 'active' : ''}" onclick="updateStatus(${app.id}, 'Reviewing')">Reviewing</button>
+            <button class="status-btn ${app.status === 'Approved' ? 'active' : ''}" onclick="updateStatus(${app.id}, 'Approved')">Approved</button>
+            <button class="status-btn ${app.status === 'Rejected' ? 'active' : ''}" onclick="updateStatus(${app.id}, 'Rejected')">Rejected</button>
+          </div>
+        </div>
+        
+        <div class="detail-section">
+          <h4>Review Notes</h4>
+          <textarea class="notes-textarea" id="reviewNotes" placeholder="Add notes about this application...">${app.reviewNotes}</textarea>
+          <button class="btn btn-primary" onclick="saveNotes(${app.id})">Save Notes</button>
+        </div>
+      `;
+      
+      modal.classList.add('active');
+    }
+    
+    // Update application status
+    function updateStatus(id, status) {
+      const app = applications.find(a => a.id === id);
+      if (app) {
+        app.status = status;
+        updateStats();
+        renderApplications(filterApplications());
+        showDetail(id); // Refresh modal
+      }
+    }
+    
+    // Save review notes
+    function saveNotes(id) {
+      const app = applications.find(a => a.id === id);
+      const notes = document.getElementById('reviewNotes').value;
+      if (app) {
+        app.reviewNotes = notes;
+        alert('Notes saved successfully');
+      }
+    }
+    
+    // Filter applications
+    function filterApplications() {
+      const statusFilter = document.getElementById('filterStatus').value;
+      const roleFilter = document.getElementById('filterRole').value;
+      const budgetFilter = document.getElementById('filterBudget').value;
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      
+      return applications.filter(app => {
+        const matchesStatus = !statusFilter || app.status === statusFilter;
+        const matchesRole = !roleFilter || app.role === roleFilter;
+        const matchesBudget = !budgetFilter || app.budget === budgetFilter;
+        const matchesSearch = !searchTerm || 
+          app.name.toLowerCase().includes(searchTerm) ||
+          app.email.toLowerCase().includes(searchTerm) ||
+          (app.company && app.company.toLowerCase().includes(searchTerm));
+        
+        return matchesStatus && matchesRole && matchesBudget && matchesSearch;
+      });
+    }
+    
+    // Initialize
+    updateStats();
+    renderApplications();
+    
+    // Event listeners for filters
+    document.getElementById('filterStatus').addEventListener('change', () => {
+      renderApplications(filterApplications());
+    });
+    
+    document.getElementById('filterRole').addEventListener('change', () => {
+      renderApplications(filterApplications());
+    });
+    
+    document.getElementById('filterBudget').addEventListener('change', () => {
+      renderApplications(filterApplications());
+    });
+    
+    document.getElementById('searchInput').addEventListener('input', () => {
+      renderApplications(filterApplications());
+    });
+    
+    // Modal close
+    document.getElementById('modalClose').addEventListener('click', () => {
+      document.getElementById('detailModal').classList.remove('active');
+    });
+    
+    document.getElementById('detailModal').addEventListener('click', (e) => {
+      if (e.target.id === 'detailModal') {
+        document.getElementById('detailModal').classList.remove('active');
+      }
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
