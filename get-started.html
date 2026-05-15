@@ -8,581 +8,77 @@
   <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-  <!-- Navigation -->
   <nav class="navbar" id="navbar">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
         <img src="assets/logo.png" alt="Naughty Pilot">
       </a>
-      
-      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
       <ul class="nav-menu" id="navMenu">
-        <li class="nav-item">
-          <a href="index.html" class="nav-link">Home</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link">
-            Traffic Solutions
-            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-          </a>
-          <div class="dropdown-menu">
-            <a href="traffic-solutions.html#advertiser" class="dropdown-link">Advertiser Traffic</a>
-            <a href="traffic-solutions.html#publisher" class="dropdown-link">Publisher Monetization</a>
-            <a href="traffic-solutions.html#creator" class="dropdown-link">Creator Growth</a>
-            <a href="traffic-solutions.html#realtime" class="dropdown-link">Real-Time Traffic</a>
-            <a href="traffic-solutions.html#scaling" class="dropdown-link">Campaign Scaling</a>
-          </div>
-        </li>
-        
-        <li class="nav-item">
-          <a href="why-us.html" class="nav-link">Why Us</a>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link">
-            Affiliates
-            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-          </a>
-          <div class="dropdown-menu">
-            <a href="affiliates.html#program" class="dropdown-link">Partner Program</a>
-            <a href="affiliates.html#payouts" class="dropdown-link">Payouts</a>
-            <a href="affiliates.html#apply" class="dropdown-link">Apply as Affiliate</a>
-          </div>
-        </li>
-        
-        <li class="nav-item">
-          <a class="nav-link">
-            Company
-            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg>
-          </a>
-          <div class="dropdown-menu">
-            <a href="company.html#about" class="dropdown-link">About</a>
-            <a href="company.html#compliance" class="dropdown-link">Compliance</a>
-            <a href="company.html#contact" class="dropdown-link">Contact</a>
-            <a href="company.html#terms" class="dropdown-link">Terms</a>
-            <a href="company.html#privacy" class="dropdown-link">Privacy</a>
-          </div>
-        </li>
-        
-        <li class="nav-item nav-cta">
-          <a href="login.html" class="btn btn-ghost">Login</a>
-          <a href="get-started.html" class="btn btn-primary active">Get Started</a>
-        </li>
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="traffic-solutions.html" class="nav-link">Traffic Solutions</a></li>
+        <li class="nav-item"><a href="why-us.html" class="nav-link">Why Us</a></li>
+        <li class="nav-item"><a href="affiliates.html" class="nav-link">Affiliates</a></li>
+        <li class="nav-item"><a href="company.html" class="nav-link">Company</a></li>
+        <li class="nav-item nav-cta"><a href="login.html" class="btn btn-ghost">Login</a><a href="get-started.html" class="btn btn-primary active">Get Started</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Application Header -->
   <section class="app-header">
     <div class="app-header-content">
       <h1>Apply to Join <span class="text-red">Naughty Pilot</span></h1>
-      <p class="app-subtitle">Complete the application below and our team will review your request within 24-48 hours</p>
+      <p class="app-subtitle">Complete the application below and our team will review your request within 24-48 hours.</p>
     </div>
   </section>
 
-  <!-- Application Form -->
   <section class="app-section">
     <div class="app-container">
       <div class="app-form-container">
         <div id="successMessage" class="message message-success" style="display: none;">
-          <strong>Application received!</strong> Our access team will review your request and follow up if approved. Check your email for confirmation.
+          <strong>Application prepared.</strong> Your email app should open with the completed application. Send it to finish submission.
         </div>
-        
         <div id="errorMessage" class="message message-error" style="display: none;">
-          <strong>Error:</strong> <span id="errorText">Something went wrong. Please try again.</span>
+          <strong>Action needed:</strong> <span id="errorText">Email app did not open. Please email your application details to applications@naughtyp.com.</span>
         </div>
-        
+
         <form class="application-form" id="applicationForm">
-          <div class="form-section">
-            <h3>Personal Information</h3>
-            
-            <div class="form-group">
-              <label for="fullName" class="form-label">Full Name *</label>
-              <input 
-                type="text" 
-                id="fullName" 
-                name="fullName" 
-                class="form-input" 
-                placeholder="John Doe"
-                required
-              >
-            </div>
-            
-            <div class="form-group">
-              <label for="email" class="form-label">Email Address *</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                class="form-input" 
-                placeholder="your@email.com"
-                required
-              >
-            </div>
+          <div class="form-section"><h3>Personal Information</h3>
+            <div class="form-group"><label for="fullName" class="form-label">Full Name *</label><input type="text" id="fullName" name="fullName" class="form-input" placeholder="John Doe" required></div>
+            <div class="form-group"><label for="email" class="form-label">Email Address *</label><input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required></div>
           </div>
-          
-          <div class="form-section">
-            <h3>Business Information</h3>
-            
-            <div class="form-group">
-              <label for="company" class="form-label">Company / Brand Name</label>
-              <input 
-                type="text" 
-                id="company" 
-                name="company" 
-                class="form-input" 
-                placeholder="Your Company LLC"
-              >
-            </div>
-            
-            <div class="form-group">
-              <label for="role" class="form-label">I am a/an: *</label>
-              <select id="role" name="role" class="form-select" required>
-                <option value="">Select your role...</option>
-                <option value="advertiser">Advertiser - I want to buy traffic</option>
-                <option value="publisher">Publisher - I want to monetize my traffic</option>
-                <option value="creator">Creator - I want to grow my audience</option>
-                <option value="affiliate">Affiliate - I want to refer partners</option>
-                <option value="agency">Agency - I represent clients</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="website" class="form-label">Website or Social Link</label>
-              <input 
-                type="url" 
-                id="website" 
-                name="website" 
-                class="form-input" 
-                placeholder="https://yourwebsite.com"
-              >
-            </div>
+          <div class="form-section"><h3>Business Information</h3>
+            <div class="form-group"><label for="company" class="form-label">Company / Brand Name</label><input type="text" id="company" name="company" class="form-input" placeholder="Your Company LLC"></div>
+            <div class="form-group"><label for="role" class="form-label">I am a/an: *</label><select id="role" name="role" class="form-select" required><option value="">Select your role...</option><option value="advertiser">Advertiser - I want to buy traffic</option><option value="publisher">Publisher - I want to monetize my traffic</option><option value="creator">Creator - I want to grow my audience</option><option value="affiliate">Affiliate - I want to refer partners</option><option value="agency">Agency - I represent clients</option><option value="other">Other</option></select></div>
+            <div class="form-group"><label for="website" class="form-label">Website or Social Link</label><input type="url" id="website" name="website" class="form-input" placeholder="https://yourwebsite.com"></div>
           </div>
-          
-          <div class="form-section">
-            <h3>Traffic & Budget Goals</h3>
-            
-            <div class="form-group">
-              <label for="trafficGoal" class="form-label">Monthly Traffic Goal</label>
-              <select id="trafficGoal" name="trafficGoal" class="form-select">
-                <option value="">Select a range...</option>
-                <option value="testing">Testing - Under 100K impressions</option>
-                <option value="small">Small - 100K - 1M impressions</option>
-                <option value="medium">Medium - 1M - 10M impressions</option>
-                <option value="large">Large - 10M - 100M impressions</option>
-                <option value="enterprise">Enterprise - 100M+ impressions</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="budget" class="form-label">Estimated Monthly Budget (for advertisers/creators)</label>
-              <select id="budget" name="budget" class="form-select">
-                <option value="">Select a range...</option>
-                <option value="under1k">Under $1,000</option>
-                <option value="1k-5k">$1,000 - $5,000</option>
-                <option value="5k-10k">$5,000 - $10,000</option>
-                <option value="10k-25k">$10,000 - $25,000</option>
-                <option value="25k-50k">$25,000 - $50,000</option>
-                <option value="50k-100k">$50,000 - $100,000</option>
-                <option value="100k+">$100,000+</option>
-              </select>
-            </div>
+          <div class="form-section"><h3>Traffic & Budget Goals</h3>
+            <div class="form-group"><label for="trafficGoal" class="form-label">Monthly Traffic Goal</label><select id="trafficGoal" name="trafficGoal" class="form-select"><option value="">Select a range...</option><option value="testing">Testing - Under 100K impressions</option><option value="small">Small - 100K - 1M impressions</option><option value="medium">Medium - 1M - 10M impressions</option><option value="large">Large - 10M - 100M impressions</option><option value="enterprise">Enterprise - 100M+ impressions</option></select></div>
+            <div class="form-group"><label for="budget" class="form-label">Estimated Monthly Budget</label><select id="budget" name="budget" class="form-select"><option value="">Select a range...</option><option value="under1k">Under $1,000</option><option value="1k-5k">$1,000 - $5,000</option><option value="5k-10k">$5,000 - $10,000</option><option value="10k-25k">$10,000 - $25,000</option><option value="25k-50k">$25,000 - $50,000</option><option value="50k-100k">$50,000 - $100,000</option><option value="100k+">$100,000+</option></select></div>
           </div>
-          
+          <div class="form-section"><h3>Additional Information</h3><div class="form-group"><label for="message" class="form-label">Tell us about your goals</label><textarea id="message" name="message" class="form-textarea" rows="5" placeholder="What are you looking to achieve with Naughty Pilot?"></textarea></div></div>
           <div class="form-section">
-            <h3>Additional Information</h3>
-            
-            <div class="form-group">
-              <label for="message" class="form-label">Tell us about your goals</label>
-              <textarea 
-                id="message" 
-                name="message" 
-                class="form-textarea" 
-                rows="5"
-                placeholder="What are you looking to achieve with Naughty Pilot? Any specific requirements or questions?"
-              ></textarea>
-            </div>
+            <div class="form-checkbox"><input type="checkbox" id="ageConsent" name="ageConsent" required><label for="ageConsent">I confirm that I am 18 years of age or older and agree to compliance review. *</label></div>
+            <div class="form-checkbox"><input type="checkbox" id="termsConsent" name="termsConsent" required><label for="termsConsent">I agree to the <a href="company.html#terms" class="text-red" target="_blank" rel="noopener">Terms of Service</a> and <a href="company.html#privacy" class="text-red" target="_blank" rel="noopener">Privacy Policy</a>. *</label></div>
           </div>
-          
-          <div class="form-section">
-            <div class="form-checkbox">
-              <input type="checkbox" id="ageConsent" name="ageConsent" required>
-              <label for="ageConsent">
-                I confirm that I am 18 years of age or older and agree to be reviewed before receiving access to the Naughty Pilot platform. I understand that all partners are subject to compliance review and that approval is not guaranteed. *
-              </label>
-            </div>
-            
-            <div class="form-checkbox">
-              <input type="checkbox" id="termsConsent" name="termsConsent" required>
-              <label for="termsConsent">
-                I agree to the <a href="company.html#terms" class="text-red" target="_blank">Terms of Service</a> and <a href="company.html#privacy" class="text-red" target="_blank">Privacy Policy</a>. *
-              </label>
-            </div>
-          </div>
-          
-          <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
-            Submit Application
-          </button>
+          <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">Submit Application</button>
         </form>
       </div>
-      
-      <div class="app-sidebar">
-        <div class="sidebar-card glass-card">
-          <h4>What Happens Next?</h4>
-          <div class="timeline-steps">
-            <div class="timeline-step">
-              <div class="step-icon">1</div>
-              <div class="step-content">
-                <strong>Review</strong>
-                <p>Our team reviews your application within 24-48 hours</p>
-              </div>
-            </div>
-            
-            <div class="timeline-step">
-              <div class="step-icon">2</div>
-              <div class="step-content">
-                <strong>Approval</strong>
-                <p>If approved, you'll receive login credentials via email</p>
-              </div>
-            </div>
-            
-            <div class="timeline-step">
-              <div class="step-icon">3</div>
-              <div class="step-content">
-                <strong>Onboarding</strong>
-                <p>Access your dashboard and complete platform setup</p>
-              </div>
-            </div>
-            
-            <div class="timeline-step">
-              <div class="step-icon">4</div>
-              <div class="step-content">
-                <strong>Launch</strong>
-                <p>Start running campaigns or monetizing traffic</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="sidebar-card glass-card">
-          <h4>Need Help?</h4>
-          <p>Have questions about the application process or requirements?</p>
-          <a href="company.html#contact" class="btn btn-secondary btn-full">Contact Us</a>
-        </div>
-      </div>
+      <div class="app-sidebar"><div class="sidebar-card glass-card"><h4>What Happens Next?</h4><p>Review, approval, onboarding, then campaign launch. Applications are screened before access is granted.</p></div><div class="sidebar-card glass-card"><h4>Need Help?</h4><p>Questions about requirements?</p><a href="company.html#contact" class="btn btn-secondary btn-full">Contact Us</a></div></div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Platform</h4>
-        <ul class="footer-links">
-          <li><a href="index.html" class="footer-link">Home</a></li>
-          <li><a href="traffic-solutions.html" class="footer-link">Traffic Solutions</a></li>
-          <li><a href="why-us.html" class="footer-link">Why Us</a></li>
-          <li><a href="affiliates.html" class="footer-link">Affiliates</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a href="company.html#about" class="footer-link">About</a></li>
-          <li><a href="company.html#compliance" class="footer-link">Compliance</a></li>
-          <li><a href="company.html#contact" class="footer-link">Contact</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Legal</h4>
-        <ul class="footer-links">
-          <li><a href="company.html#terms" class="footer-link">Terms</a></li>
-          <li><a href="company.html#privacy" class="footer-link">Privacy</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Access</h4>
-        <ul class="footer-links">
-          <li><a href="login.html" class="footer-link">Login</a></li>
-          <li><a href="get-started.html" class="footer-link">Get Started</a></li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      <p>18+ only. Naughty Pilot works with compliant adult-friendly advertisers, publishers, creators, and traffic partners. All campaigns and partners are subject to review.</p>
-      <p style="margin-top: 1rem;">&copy; 2026 Naughty Pilot. All rights reserved.</p>
-    </div>
-  </footer>
+  <footer class="footer"><div class="footer-bottom"><p>18+ only. All campaigns and partners are subject to review.</p><p style="margin-top: 1rem;">&copy; 2026 Naughty Pilot. All rights reserved.</p></div></footer>
 
   <style>
-    .app-header {
-      padding: 10rem 3rem 4rem;
-      text-align: center;
-      background: linear-gradient(180deg, rgba(10,10,10,1) 0%, rgba(0,0,0,1) 100%);
-      border-bottom: 1px solid rgba(220, 20, 60, 0.1);
-    }
-    
-    .app-header-content h1 {
-      margin-bottom: 1rem;
-    }
-    
-    .app-subtitle {
-      font-size: 1.125rem;
-      color: var(--np-gray-light);
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    
-    .app-section {
-      padding: 4rem 3rem 6rem;
-    }
-    
-    .app-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 350px;
-      gap: 3rem;
-      align-items: start;
-    }
-    
-    .app-form-container {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
-      padding: 3rem;
-    }
-    
-    .application-form {
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-    
-    .form-section {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .form-section h3 {
-      font-size: 1.5rem;
-      color: var(--np-red);
-      margin-bottom: 0.5rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(220, 20, 60, 0.2);
-    }
-    
-    .btn-lg {
-      padding: 1.125rem 2.5rem;
-      font-size: 1.05rem;
-    }
-    
-    .app-sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      position: sticky;
-      top: 100px;
-    }
-    
-    .sidebar-card {
-      padding: 2rem;
-    }
-    
-    .sidebar-card h4 {
-      font-size: 1.25rem;
-      margin-bottom: 1.5rem;
-      color: var(--np-white);
-    }
-    
-    .sidebar-card p {
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-    
-    .timeline-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .timeline-step {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
-    
-    .step-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--np-red) 0%, var(--np-deep-red) 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 0.875rem;
-      flex-shrink: 0;
-    }
-    
-    .step-content {
-      flex: 1;
-    }
-    
-    .step-content strong {
-      display: block;
-      color: var(--np-white);
-      margin-bottom: 0.25rem;
-      font-size: 0.95rem;
-    }
-    
-    .step-content p {
-      font-size: 0.875rem;
-      color: var(--np-gray-light);
-      margin: 0;
-      line-height: 1.4;
-    }
-    
-    @media (max-width: 1024px) {
-      .app-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .app-sidebar {
-        position: static;
-        max-width: 100%;
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .app-header {
-        padding: 8rem 2rem 3rem;
-      }
-      
-      .app-section {
-        padding: 3rem 2rem 4rem;
-      }
-      
-      .app-form-container {
-        padding: 2rem;
-      }
-    }
+    .app-header{padding:10rem 3rem 4rem;text-align:center;background:linear-gradient(180deg,rgba(10,10,10,1) 0%,rgba(0,0,0,1) 100%);border-bottom:1px solid rgba(220,20,60,.1)}.app-subtitle{font-size:1.125rem;color:var(--np-gray-light);max-width:700px;margin:0 auto}.app-section{padding:4rem 3rem 6rem}.app-container{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 350px;gap:3rem;align-items:start}.app-form-container{background:var(--glass-bg);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px;padding:3rem}.application-form{display:flex;flex-direction:column;gap:2.5rem}.form-section{display:flex;flex-direction:column;gap:1.5rem}.form-section h3{font-size:1.5rem;color:var(--np-red);margin-bottom:.5rem;padding-bottom:.75rem;border-bottom:1px solid rgba(220,20,60,.2)}.btn-lg{padding:1.125rem 2.5rem;font-size:1.05rem}.app-sidebar{display:flex;flex-direction:column;gap:2rem;position:sticky;top:100px}.sidebar-card{padding:2rem}.sidebar-card h4{font-size:1.25rem;margin-bottom:1.5rem;color:var(--np-white)}.sidebar-card p{font-size:.95rem;line-height:1.6;margin-bottom:1.5rem}@media(max-width:1024px){.app-container{grid-template-columns:1fr}.app-sidebar{position:static;max-width:100%}}@media(max-width:768px){.app-header{padding:8rem 2rem 3rem}.app-section{padding:3rem 2rem 4rem}.app-form-container{padding:2rem}}
   </style>
 
   <script>
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Mobile menu toggle
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const navMenu = document.getElementById('navMenu');
-    
-    mobileMenuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-        navMenu.classList.remove('active');
-      }
-    });
-
-    // Application form submission
-    const applicationForm = document.getElementById('applicationForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const successMessage = document.getElementById('successMessage');
-    const errorMessage = document.getElementById('errorMessage');
-    const errorText = document.getElementById('errorText');
-    
-    applicationForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      // Hide any previous messages
-      successMessage.style.display = 'none';
-      errorMessage.style.display = 'none';
-      
-      // Get form data
-      const formData = new FormData(applicationForm);
-      const data = {
-        name: formData.get('fullName'),
-        email: formData.get('email'),
-        company: formData.get('company'),
-        role: formData.get('role'),
-        website: formData.get('website'),
-        trafficGoal: formData.get('trafficGoal'),
-        budget: formData.get('budget'),
-        message: formData.get('message'),
-        status: 'New',
-        createdAt: new Date().toISOString()
-      };
-      
-      // Show loading state
-      const originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<div class="spinner"></div> Submitting...';
-      submitBtn.disabled = true;
-      
-      // Simulate API call (replace with actual backend integration)
-      setTimeout(() => {
-        // For demo purposes, show success
-        // In production, replace this with actual API call:
-        /*
-        try {
-          const response = await fetch('/api/applications', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-          
-          if (!response.ok) throw new Error('Submission failed');
-          
-          // Show success message
-          successMessage.style.display = 'block';
-          applicationForm.reset();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          
-        } catch (error) {
-          errorText.textContent = error.message;
-          errorMessage.style.display = 'block';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        */
-        
-        // Demo: Show success
-        console.log('Application data:', data);
-        successMessage.style.display = 'block';
-        applicationForm.reset();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        
-        // In production, you could also send email notifications here
-        // or redirect to a thank you page
-      }, 1500);
-    });
+    const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>{window.scrollY>50?navbar.classList.add('scrolled'):navbar.classList.remove('scrolled')});
+    const mobileMenuToggle=document.getElementById('mobileMenuToggle');const navMenu=document.getElementById('navMenu');mobileMenuToggle.addEventListener('click',()=>navMenu.classList.toggle('active'));document.addEventListener('click',e=>{if(!navMenu.contains(e.target)&&!mobileMenuToggle.contains(e.target))navMenu.classList.remove('active')});
+    const applicationForm=document.getElementById('applicationForm');const submitBtn=document.getElementById('submitBtn');const successMessage=document.getElementById('successMessage');const errorMessage=document.getElementById('errorMessage');const errorText=document.getElementById('errorText');
+    applicationForm.addEventListener('submit',e=>{e.preventDefault();successMessage.style.display='none';errorMessage.style.display='none';const formData=new FormData(applicationForm);const lines=['New Naughty Pilot Application','',`Name: ${formData.get('fullName')}`,`Email: ${formData.get('email')}`,`Company: ${formData.get('company')||'N/A'}`,`Role: ${formData.get('role')}`,`Website: ${formData.get('website')||'N/A'}`,`Traffic goal: ${formData.get('trafficGoal')||'N/A'}`,`Budget: ${formData.get('budget')||'N/A'}`,'',`Message: ${formData.get('message')||'N/A'}`,'','Age consent: Yes','Terms consent: Yes'];const subject=encodeURIComponent('New Naughty Pilot Application');const body=encodeURIComponent(lines.join('\n'));const mailto=`mailto:applications@naughtyp.com?subject=${subject}&body=${body}`;submitBtn.disabled=true;submitBtn.textContent='Opening email...';window.location.href=mailto;successMessage.style.display='block';setTimeout(()=>{submitBtn.disabled=false;submitBtn.textContent='Submit Application';errorText.textContent='If your email app did not open, send your application details to applications@naughtyp.com.';errorMessage.style.display='block'},1200)});
   </script>
 </body>
 </html>
